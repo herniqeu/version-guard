@@ -1,0 +1,17 @@
+FROM node:latest
+FROM ubuntu
+
+FROM golang:alpine AS builder
+FROM python:3 AS test
+
+RUN apt-get update && apt-get install -y \
+    nginx \
+    redis-server \
+    postgresql
+
+RUN npm install express mongoose redis
+
+COPY --from=nginx:latest /etc/nginx/nginx.conf /etc/nginx/nginx.conf
+
+FROM node:slim
+FROM python:3-slim

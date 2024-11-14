@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bad-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: web
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      
+      - name: api
+        image: node:alpine
+        
+      - name: cache
+        image: redis
+        
+      initContainers:
+      - name: init-db
+        image: busybox
+        command: ['sh', '-c', 'echo waiting for database...']
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bad-statefulset
+spec:
+  serviceName: database
+  replicas: 3
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - name: db
+        image: postgres:alpine

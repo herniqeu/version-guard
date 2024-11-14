@@ -1,0 +1,9 @@
+name: 'PR Version Pinning Validator'
+description: 'Validates version pinning requirements in pull requests'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token for API access'
+    required: true
+runs:
+  using: 'node20'
+  main: 'dist/index.js' 

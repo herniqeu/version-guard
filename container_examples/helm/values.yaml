@@ -1,0 +1,23 @@
+images:
+  frontend:
+    repository: nginx
+    tag: latest
+  backend:
+    repository: node
+    tag: alpine
+  database:
+    repository: postgres
+    pullPolicy: Always
+  cache:
+    repository: redis
+    tag: alpine
+  messageQueue:
+    repository: rabbitmq
+    tag: 3
+  monitoring:
+    repository: prometheus/prometheus
+    tag: latest
+
+global:
+  images:
+    pullPolicy: Always
